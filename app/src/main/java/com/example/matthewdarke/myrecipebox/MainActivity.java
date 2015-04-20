@@ -171,25 +171,7 @@ public class MainActivity extends Activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        AppetizerFragment mainFragment = (AppetizerFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        BeefFragment beefFragment = (BeefFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        ChickenFragment chickenFragment = (ChickenFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        MexicanFragment mexicanFragment = (MexicanFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        SaladFragment saladFragment = (SaladFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        ShoppingFragment shoppingFragment = (ShoppingFragment) getFragmentManager()
-                .findFragmentById(R.id.container);
-
-        if (mainFragment != null) {
+        if (fragment1 != null) {
 
             super.onActivityResult(requestCode, resultCode, data);
 
@@ -205,130 +187,67 @@ public class MainActivity extends Activity
 
                     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
 
-                    mainFragment.setListAdapter(adapter);
+                    fragment1.setListAdapter(adapter);
 
 
-                    saveData();
+                    saveAppatizerData();
                 }
 
-            }
 
-        }  else if (beefFragment != null) {
-
-                super.onActivityResult(requestCode, resultCode, data);
-
-                // Indicate state of results
-                if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+                if (fragment4 != null) {
 
 
-                    ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
-
-                    if (itemsArray != null) {
-
-                        itemsArray.addAll(first);
-
-                        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
 
 
-                        beefFragment.setListAdapter(adapter);
-                        saveData();
-                    }
-
+                    fragment4.setListAdapter(adapter);
+                    saveBeefData();
                 }
 
-            }  else if  (chickenFragment != null) {
 
-                    super.onActivityResult(requestCode, resultCode, data);
-
-                    // Indicate state of results
-                    if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-
-                        ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
-
-                        if (itemsArray != null) {
-
-                            itemsArray.addAll(first);
-
-                            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+                if (fragment3 != null) {
 
 
 
-                            chickenFragment.setListAdapter(adapter);
-                            saveData();
+
+                            fragment3.setListAdapter(adapter);
+                            saveChickenData();
                         }
 
-                    }
-
-        }  else if  (mexicanFragment != null) {
-
-            super.onActivityResult(requestCode, resultCode, data);
-
-            // Indicate state of results
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-
-                ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
-
-                if (itemsArray != null) {
-
-                    itemsArray.addAll(first);
-
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
 
 
 
-                    mexicanFragment.setListAdapter(adapter);
-                    saveData();
-                }
-            }
-
-        }  else if  (saladFragment != null) {
-
-            super.onActivityResult(requestCode, resultCode, data);
-
-            // Indicate state of results
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-
-                ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
-
-                if (itemsArray != null) {
-
-                    itemsArray.addAll(first);
-
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+                if (fragment5 != null) {
 
 
 
-                    saladFragment.setListAdapter(adapter);
-                    saveData();
-                }
 
-            }
-
-        }  else if  (shoppingFragment != null) {
-
-            super.onActivityResult(requestCode, resultCode, data);
-
-            // Indicate state of results
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-
-                ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
-
-                if (itemsArray != null) {
-
-                    itemsArray.addAll(first);
-
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+                            fragment5.setListAdapter(adapter);
+                            saveMexicanData();
+                        }
 
 
 
-                    shoppingFragment.setListAdapter(adapter);
-                    saveData();
-                }
+                if (fragment2 != null) {
 
+
+
+
+                            fragment2.setListAdapter(adapter);
+                            saveSaladData();
+                        }
+
+
+
+
+                if (fragment6 != null) {
+
+
+
+
+
+                            fragment6.setListAdapter(adapter);
+                            saveShoppingData();
+                        }
 
 
             }
@@ -337,11 +256,11 @@ public class MainActivity extends Activity
     }
 
     //saves data using File output stream stores to a file
-    public void saveData() {
+    public void saveAppatizerData() {
 
 
         try {
-            FileOutputStream outputStream = openFileOutput("contactDat", Context.MODE_PRIVATE);
+            FileOutputStream outputStream = openFileOutput("AppatizerDat", Context.MODE_PRIVATE);
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
@@ -361,6 +280,140 @@ public class MainActivity extends Activity
     }
 
 
+    //saves data using File output stream stores to a file
+    public void saveSaladData() {
+
+
+        try {
+            FileOutputStream outputStream = openFileOutput("SaladDat", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            //add data items to array
+            for (Items iItemsArray : itemsArray) {
+
+                mItmData = iItemsArray;
+
+                //write objects
+                objectOutputStream.writeObject(mItmData);
+            }
+
+            objectOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //saves data using File output stream stores to a file
+    public void saveBeefData() {
+
+
+        try {
+            FileOutputStream outputStream = openFileOutput("BeefDat", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            //add data items to array
+            for (Items iItemsArray : itemsArray) {
+
+                mItmData = iItemsArray;
+
+                //write objects
+                objectOutputStream.writeObject(mItmData);
+            }
+
+            objectOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    //saves data using File output stream stores to a file
+    public void saveChickenData() {
+
+
+        try {
+            FileOutputStream outputStream = openFileOutput("ChickenDat", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            //add data items to array
+            for (Items iItemsArray : itemsArray) {
+
+                mItmData = iItemsArray;
+
+                //write objects
+                objectOutputStream.writeObject(mItmData);
+            }
+
+            objectOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    //saves data using File output stream stores to a file
+    public void saveShoppingData() {
+
+
+        try {
+            FileOutputStream outputStream = openFileOutput("ShoppingDat", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            //add data items to array
+            for (Items iItemsArray : itemsArray) {
+
+                mItmData = iItemsArray;
+
+                //write objects
+                objectOutputStream.writeObject(mItmData);
+            }
+
+            objectOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    //saves data using File output stream stores to a file
+    public void saveMexicanData() {
+
+
+        try {
+            FileOutputStream outputStream = openFileOutput("MexicanDat", Context.MODE_PRIVATE);
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            //add data items to array
+            for (Items iItemsArray : itemsArray) {
+
+                mItmData = iItemsArray;
+
+                //write objects
+                objectOutputStream.writeObject(mItmData);
+            }
+
+            objectOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
     //reads saved data
     public void loadSavedData() {
 
@@ -371,7 +424,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("AppatizerDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
@@ -414,7 +467,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("SaladDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
@@ -457,7 +510,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("BeefDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
@@ -500,7 +553,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("ChickenDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
@@ -543,7 +596,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("MexicanDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
@@ -586,7 +639,7 @@ public class MainActivity extends Activity
 
         try {
 
-            FileInputStream inputStream = openFileInput("contactDat");
+            FileInputStream inputStream = openFileInput("ShoppingDat");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             //needs while loop
