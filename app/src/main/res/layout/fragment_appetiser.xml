@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                tools:context=".MainActivity$PlaceholderFragment"
+                tools:context=".AppetizerActivity$PlaceholderFragment"
                 android:id="@+id/dwdew"
                 android:background="#ff000100">
 

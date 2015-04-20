@@ -2,9 +2,13 @@
 <resources>
 
     <string name="app_name">MyRecipeBox</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1">Appatisers</string>
+    <string name="title_section2"> Salads</string>
+    <string name="title_section3"> Chicken</string>
+    <string name="title_section4"> Beef</string>
+    <string name="title_section5"> Mexican</string>
+    <string name="title_section6"> Shopping list</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
