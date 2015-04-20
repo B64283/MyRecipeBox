@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="300dp"
         android:layout_height="80dp"
-        android:text="       Contact Details"
+        android:text="        Details"
         android:id="@+id/textView3"
         android:textSize="16pt"
         android:layout_alignParentTop="true"
