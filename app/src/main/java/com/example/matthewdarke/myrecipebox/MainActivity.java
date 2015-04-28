@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -25,18 +26,31 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Serializable, AppetizerFragment.OnFragmentMediaControllInteractionListener, SaladFragment.OnFragmentMediaControllInteractionListener, MexicanFragment.OnFragmentMediaControllInteractionListener, BeefFragment.OnFragmentMediaControllInteractionListener, ChickenFragment.OnFragmentMediaControllInteractionListener, ShoppingFragment.OnFragmentMediaControllInteractionListener       {
-
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Serializable, AppetizerFragment.OnFragmentMediaControllInteractionListener, SaladFragment.OnFragmentMediaControllInteractionListener, MexicanFragment.OnFragmentMediaControllInteractionListener, BeefFragment.OnFragmentMediaControllInteractionListener, ChickenFragment.OnFragmentMediaControllInteractionListener, ShoppingFragment.OnFragmentMediaControllInteractionListener {
 
 
     Button bnAdd;
     private static final long serialVersionUID = 2736847634070552888L;
 
     //set up arrayList and array adapter with model data
-    public static ArrayList<Items> itemsArray = new ArrayList<>();
+    public static ArrayList<Items> itemsArrayAppatizer = new ArrayList<>();
+    public static ArrayList<Items> itemsArrayChicken = new ArrayList<>();
+    public static ArrayList<Items> itemsArrayBeef = new ArrayList<>();
+    public static ArrayList<Items> itemsArrayMexican = new ArrayList<>();
+    public static ArrayList<Items> itemsArrayShopping = new ArrayList<>();
+    public static ArrayList<Items> itemsArraySalad = new ArrayList<>();
 
-    public static ArrayAdapter<Items> adapter;
+    public static ArrayAdapter<Items> adapter1;
+    public static ArrayAdapter<Items> adapter2;
+    public static ArrayAdapter<Items> adapter3;
+    public static ArrayAdapter<Items> adapter4;
+    public static ArrayAdapter<Items> adapter5;
+    public static ArrayAdapter<Items> adapter6;
 
+
+
+
+    public static int deleteIndex;
 
     //requestCode - the identifier from the launching intent
     public static final int REQUEST_CODE = 1;
@@ -46,7 +60,6 @@ public class MainActivity extends Activity
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-
 
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -79,7 +92,7 @@ public class MainActivity extends Activity
 
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        fragment1 = (AppetizerFragment)android.app.Fragment.instantiate(this, AppetizerFragment.class.getName(), null);
+        fragment1 = (AppetizerFragment) android.app.Fragment.instantiate(this, AppetizerFragment.class.getName(), null);
         fragment2 = (SaladFragment) android.app.Fragment.instantiate(this, SaladFragment.class.getName(), null);
         fragment3 = (ChickenFragment) android.app.Fragment.instantiate(this, ChickenFragment.class.getName(), null);
         fragment4 = (BeefFragment) android.app.Fragment.instantiate(this, BeefFragment.class.getName(), null);
@@ -87,9 +100,7 @@ public class MainActivity extends Activity
         fragment6 = (ShoppingFragment) android.app.Fragment.instantiate(this, ShoppingFragment.class.getName(), null);
 
 
-
     }
-
 
 
     @Override
@@ -110,7 +121,6 @@ public class MainActivity extends Activity
                 fragTrans.commit();
 
                 mTitle = getString(R.string.title_section1);
-
 
 
                 break;
@@ -139,7 +149,6 @@ public class MainActivity extends Activity
                 fragTrans.commit();
 
 
-
                 mTitle = getString(R.string.title_section4);
                 break;
             case 5:
@@ -165,13 +174,11 @@ public class MainActivity extends Activity
     }
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if (fragment1 != null) {
+        if (fragment1.isVisible()) {
 
             super.onActivityResult(requestCode, resultCode, data);
 
@@ -181,79 +188,151 @@ public class MainActivity extends Activity
 
                 ArrayList<Items> first = (ArrayList<Items>) data.getSerializableExtra("conDat");
 
-                if (itemsArray != null) {
-
-                    itemsArray.addAll(first);
-
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
-
-                    fragment1.setListAdapter(adapter);
-
-
+                if (itemsArrayAppatizer != null) {
                     saveAppatizerData();
+                    itemsArrayAppatizer.addAll(first);
+
+                    adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayAppatizer);
+
+                    fragment1.setListAdapter(adapter1);
+
+                } else {
+                    saveAppatizerData();
+                    itemsArrayAppatizer = first;
                 }
-
-
-                if (fragment4 != null) {
-
-
-
-
-                    fragment4.setListAdapter(adapter);
-                    saveBeefData();
-                }
-
-
-                if (fragment3 != null) {
-
-
-
-
-                            fragment3.setListAdapter(adapter);
-                            saveChickenData();
-                        }
-
-
-
-
-                if (fragment5 != null) {
-
-
-
-
-                            fragment5.setListAdapter(adapter);
-                            saveMexicanData();
-                        }
-
-
-
-                if (fragment2 != null) {
-
-
-
-
-                            fragment2.setListAdapter(adapter);
-                            saveSaladData();
-                        }
-
-
-
-
-                if (fragment6 != null) {
-
-
-
-
-
-                            fragment6.setListAdapter(adapter);
-                            saveShoppingData();
-                        }
 
 
             }
+        } else if  (fragment2.isVisible()) {
 
-        }
-    }
+            super.onActivityResult(requestCode, resultCode, data);
+
+            // Indicate state of results
+            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+                ArrayList<Items> second = (ArrayList<Items>) data.getSerializableExtra("conDat");
+
+                if (itemsArraySalad != null) {
+                    saveSaladData();
+                    itemsArraySalad.addAll(second);
+
+                    adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArraySalad);
+
+                    fragment2.setListAdapter(adapter2);
+
+                } else {
+                    saveSaladData();
+                    itemsArraySalad = second;
+                }
+
+
+            }
+        } else  if (fragment3.isVisible()) {
+
+            super.onActivityResult(requestCode, resultCode, data);
+
+            // Indicate state of results
+            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+                ArrayList<Items> third = (ArrayList<Items>) data.getSerializableExtra("conDat");
+
+                if (itemsArrayChicken != null) {
+                    saveChickenData();
+                    itemsArrayChicken.addAll(third);
+
+                    adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayChicken);
+
+                    fragment3.setListAdapter(adapter3);
+
+                } else {
+                    saveChickenData();
+                    itemsArrayChicken = third;
+                }
+            }
+
+
+            }else  if (fragment4.isVisible()) {
+
+                super.onActivityResult(requestCode, resultCode, data);
+
+                // Indicate state of results
+                if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+                    ArrayList<Items> fourth = (ArrayList<Items>) data.getSerializableExtra("conDat");
+
+                    if (itemsArrayBeef != null) {
+                        saveBeefData();
+                        itemsArrayBeef.addAll(fourth);
+
+                        adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayBeef);
+
+                        fragment4.setListAdapter(adapter4);
+
+                    } else {
+                        saveBeefData();
+                        itemsArrayBeef = fourth;
+                    }
+
+                }
+
+                }else  if (fragment5.isVisible()) {
+
+                    super.onActivityResult(requestCode, resultCode, data);
+
+                    // Indicate state of results
+                    if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+                        ArrayList<Items> fifth = (ArrayList<Items>) data.getSerializableExtra("conDat");
+
+                        if (itemsArrayMexican != null) {
+                            saveMexicanData();
+                            itemsArrayMexican.addAll(fifth);
+
+                            adapter5 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayMexican);
+
+                            fragment5.setListAdapter(adapter5);
+
+                        } else {
+                            saveMexicanData();
+                            itemsArrayMexican = fifth;
+                        }
+                    }
+
+                    }else if (fragment6.isVisible()) {
+
+                        super.onActivityResult(requestCode, resultCode, data);
+
+                        // Indicate state of results
+                        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+                            ArrayList<Items> sixth = (ArrayList<Items>) data.getSerializableExtra("conDat");
+
+                            if (itemsArrayShopping != null) {
+                                saveShoppingData();
+                                itemsArrayShopping.addAll(sixth);
+
+                                adapter6 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayShopping);
+
+                                fragment6.setListAdapter(adapter6);
+
+                            } else {
+                                saveShoppingData();
+                                itemsArrayShopping = sixth;
+                            }
+
+
+                        }
+                    }
+                }
+
+
+
+
 
     //saves data using File output stream stores to a file
     public void saveAppatizerData() {
@@ -265,7 +344,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArrayAppatizer) {
 
                 mItmData = iItemsArray;
 
@@ -290,7 +369,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArraySalad) {
 
                 mItmData = iItemsArray;
 
@@ -315,7 +394,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArrayBeef) {
 
                 mItmData = iItemsArray;
 
@@ -341,7 +420,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArrayChicken) {
 
                 mItmData = iItemsArray;
 
@@ -368,7 +447,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArrayShopping) {
 
                 mItmData = iItemsArray;
 
@@ -394,7 +473,7 @@ public class MainActivity extends Activity
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
             //add data items to array
-            for (Items iItemsArray : itemsArray) {
+            for (Items iItemsArray : itemsArrayMexican) {
 
                 mItmData = iItemsArray;
 
@@ -434,7 +513,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArrayAppatizer.add(mItmData);
                 //close input stream
             }
 
@@ -442,9 +521,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayAppatizer);
 
-            mainFragment.setListAdapter(adapter);
+            mainFragment.setListAdapter(adapter1);
 
 
 
@@ -477,7 +556,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArraySalad.add(mItmData);
                 //close input stream
             }
 
@@ -485,9 +564,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArraySalad);
 
-            saladFragment.setListAdapter(adapter);
+            saladFragment.setListAdapter(adapter2);
 
 
 
@@ -520,7 +599,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArrayBeef.add(mItmData);
                 //close input stream
             }
 
@@ -528,9 +607,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayBeef);
 
-            saladFragment.setListAdapter(adapter);
+            saladFragment.setListAdapter(adapter4);
 
 
 
@@ -546,7 +625,7 @@ public class MainActivity extends Activity
     //reads saved data
     public void loadSavedChickenData() {
 
-        ChickenFragment saladFragment = (ChickenFragment)
+        ChickenFragment chickFragment = (ChickenFragment)
                 getFragmentManager().findFragmentById(R.id.container);
 
 
@@ -563,7 +642,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArrayChicken.add(mItmData);
                 //close input stream
             }
 
@@ -571,9 +650,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayChicken);
 
-            saladFragment.setListAdapter(adapter);
+            chickFragment.setListAdapter(adapter3);
 
 
 
@@ -606,7 +685,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArrayMexican.add(mItmData);
                 //close input stream
             }
 
@@ -614,9 +693,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter5 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayMexican);
 
-            mexFragment.setListAdapter(adapter);
+            mexFragment.setListAdapter(adapter5);
 
 
 
@@ -649,7 +728,7 @@ public class MainActivity extends Activity
                 //cast data
                 mItmData = (Items) objectInputStream.readObject();
 
-                itemsArray.add(mItmData);
+                itemsArrayShopping.add(mItmData);
                 //close input stream
             }
 
@@ -657,9 +736,9 @@ public class MainActivity extends Activity
 
             objectInputStream.close();
 //add objects to array adapter
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArray);
+            adapter6 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemsArrayShopping);
 
-            shopFragment.setListAdapter(adapter);
+            shopFragment.setListAdapter(adapter6);
 
 
 
@@ -676,14 +755,17 @@ public class MainActivity extends Activity
     @Override
     public void onFragmentControllInteraction(View v) {
 
-        if (v.getId() == R.id.bnAdd) {
+
 
             Intent addTo = new Intent(this, AddActivity.class);
             startActivityForResult(addTo, REQUEST_CODE);
 
 
         }
-    }
+
+
+
+
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
@@ -708,7 +790,24 @@ public class MainActivity extends Activity
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent addTo = new Intent(this,AddActivity.class);
+            startActivityForResult(addTo, REQUEST_CODE);
+
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
