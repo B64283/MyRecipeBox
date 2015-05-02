@@ -70,6 +70,8 @@ public class MainActivity extends Activity
     public MexicanFragment fragment5;
     public ShoppingFragment fragment6;
 
+
+
     public android.app.FragmentManager fragmentManager;
     public FragmentTransaction fragTrans;
     /**
@@ -795,6 +797,8 @@ public class MainActivity extends Activity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

@@ -22,26 +22,9 @@
 
 
 
-    <Button
-        android:id="@+id/button_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableRight="@android:drawable/ic_search_category_default"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
 
-    <EditText
-        android:id="@+id/text_search_box"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.0"
-        android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/button_search"
-        android:layout_alignBottom="@+id/button_search"
-        tools:ignore="RtlCompat"/>
+
+
 
 
 </RelativeLayout>

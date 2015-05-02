@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name_edit"
-        android:hint="Cook Time"
+        android:hint="Recipe Name"
         android:layout_below="@+id/textView3"
         android:layout_alignLeft="@+id/textView3"
         android:layout_alignStart="@+id/textView3"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
-        android:hint="Prep Time2 "
+        android:hint="cook Time "
         android:layout_below="@+id/name_edit"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"/>
@@ -65,25 +65,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText3"
-        android:hint="Notes"
-        android:layout_below="@+id/editText2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@+id/b_add"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:hint="Prep Time"
+        android:layout_below="@+id/name_edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageViewPic"
-        android:layout_below="@+id/editText3"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_above="@+id/b_add"/>
+        android:layout_above="@+id/b_add"
+        android:layout_below="@+id/editText2"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capture Recipe"
+        android:id="@+id/buttonPic"
+        android:layout_above="@+id/name_edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
 
 
 </RelativeLayout>
